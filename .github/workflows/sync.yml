@@ -1,0 +1,24 @@
+name: Sync Fork
+
+on:
+  schedule:
+    # 每天凌晨0点同步一次（使用UTC时间）
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Sync upstream
+        run: |
+          git remote add upstream https://github.com/xxss0903/drawstamputils.git
+          git fetch upstream
+          git checkout main
+          git merge upstream/main
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
