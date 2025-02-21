@@ -18,7 +18,7 @@ jobs:
           git remote add upstream https://github.com/xxss0903/drawstamputils.git
           git fetch upstream
           git checkout master
-          git merge upstream/master
+          git merge upstream/master --allow-unrelated-histories
           git push origin master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
